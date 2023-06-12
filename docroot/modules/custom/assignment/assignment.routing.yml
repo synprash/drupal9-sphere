@@ -1,0 +1,7 @@
+assignment.settings:
+  path: '/admin/config/assignment/settings'
+  defaults:
+    _form: '\Drupal\assignment\Form\AssignmentSettingsForm'
+    _title: 'assignment Settings'
+  requirements:
+    _permission: 'administer site configuration'

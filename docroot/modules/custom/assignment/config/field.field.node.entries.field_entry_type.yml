@@ -1,0 +1,21 @@
+uuid: 6f2aba70-113e-41e9-97ff-2b91a7ac5b6e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_entry_type
+    - node.type.entries
+  module:
+    - options
+id: node.entries.field_entry_type
+field_name: field_entry_type
+entity_type: node
+bundle: entries
+label: 'Entry type'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,20 @@
+uuid: a19acb21-50aa-479d-9120-164469a9b35d
+langcode: en
+status: true
+dependencies:
+  module:
+    - assignment
+  theme:
+    - olivero
+id: apidatablock
+theme: olivero
+region: content
+weight: -6
+provider: null
+plugin: assignment_api_data_block
+settings:
+  id: assignment_api_data_block
+  label: 'API Data Block'
+  label_display: visible
+  provider: assignment
+visibility: {  }

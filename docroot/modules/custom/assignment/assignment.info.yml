@@ -1,0 +1,25 @@
+name: 'assignment'
+type: module
+description: 'Custom module to display API data based on selected category.'
+core_version_requirement: ^9 || ^8
+package: Custom
+dependencies:
+  - node
+services:
+  assignment.http_client:
+    class: GuzzleHttp\ClientInterface
+    factory: 'GuzzleHttp\Client::create'
+    arguments: ['@http_client_factory']
+    tags:
+      - { name: http_client }
+  assignment.api_data_block:
+    class: Drupal\assignment\Plugin\Block\ApiDataBlock
+    arguments: ['@config.factory', '@entity_type.manager', '@http_client']
+    tags:
+      - { name: block.plugin }
+configuration:
+  - 'config/core.entity_view_display.node.entries.default.yml'
+  - 'config/core.entity_view_display.node.entries.teaser.yml'
+  - 'config/core.entity_view_display.node.entries.default.yml'
+  - 'config/field.field.node.entries.field_entry_type.yml'
+  - 'config/assignment.settings.yml'

@@ -1,0 +1,116 @@
+{
+  "name": "myproject/drupal9",
+  "description": "Drupal 9 project",
+  "type": "project",
+  "license": "GPL-2.0-only",
+  "require": {
+    "composer/installers": "^2.0",
+    "drupal/config_ignore": "^2.4",
+    "drupal/config_split": "^1.9",
+    "drupal/core": "^9.5",
+    "drupal/core-composer-scaffold": "^9.5",
+    "drupal/core-project-message": "^9.5",
+    "drupal/ctools": "^4.0",
+    "drupal/devel": "^5.0",
+    "drupal/restui": "^1.21",
+    "drush/drush": "^11.6"
+  },
+  "repositories": {
+    "drupal": {
+        "type": "composer",
+        "url": "https://packages.drupal.org/8"
+    },
+    "asset-packagist": {
+        "type": "composer",
+        "url": "https://asset-packagist.org"
+    }
+  },
+  "config": {
+    "platform": {
+        "php": "8.0"
+    },
+    "sort-packages": true,
+    "allow-plugins": {
+        "composer/installers": true,
+        "dealerdirect/phpcodesniffer-composer-installer": true,
+        "cweagans/composer-patches": true,
+        "drupal/core-composer-scaffold": true,
+        "mnsami/composer-custom-directory-installer": true,
+        "oomphinc/composer-installers-extender": true,
+        "drupal/core-project-message": true
+    }
+  },
+  "extra": {
+    "composer-exit-on-patch-failure": true,
+    "drupal-scaffold": {
+        "locations": {
+            "web-root": "./docroot"
+        },
+        "file-mapping": {
+            "[web-root]/.htaccess": false,
+            "[web-root]/robots.txt": false
+        },
+        "excludes": [
+            ".htaccess"
+        ],
+        "gitignore": false
+    },
+    "enable-patching": true,
+    "installer-paths": {
+        "docroot/core": [
+            "type:drupal-core"
+        ],
+        "docroot/modules/contrib/{$name}": [
+            "type:drupal-module"
+        ],
+        "docroot/modules/custom/{$name}": [
+            "type:drupal-custom-module"
+        ],
+        "docroot/profiles/contrib/{$name}": [
+            "type:drupal-profile"
+        ],
+        "docroot/profiles/custom/{$name}": [
+            "type:drupal-custom-profile"
+        ],
+        "docroot/themes/contrib/{$name}": [
+            "type:drupal-theme"
+        ],
+        "docroot/themes/custom/{$name}": [
+            "type:drupal-custom-theme"
+        ],
+        "docroot/libraries/{$name}": [
+            "type:drupal-library",
+            "type:bower-asset",
+            "type:npm-asset",
+            "harvesthq/chosen"
+        ],
+        "drush/Commands/{$name}": [
+            "type:drupal-drush"
+        ]
+      },
+      "installer-types": [
+          "bower-asset",
+          "npm-asset",
+          "drupal-library"
+      ],
+      "patchLevel": {
+          "drupal/core": "-p2"
+      },
+      "patches": {
+
+      }
+    },
+  "autoload": {
+    "psr-4": {
+      "Drupal\\Core\\Composer\\": "core/lib/Drupal/Core/Composer"
+    }
+  },
+  "scripts": {
+    "pre-install-cmd": [
+      "@php scripts/pre-install.php"
+    ],
+    "pre-update-cmd": [
+      "@php scripts/pre-update.php"
+    ]
+  }
+}

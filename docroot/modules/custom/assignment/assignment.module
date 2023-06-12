@@ -1,0 +1,31 @@
+<?php
+
+
+/**
+ * Implements hook_uninstall().
+ */
+function assignment_uninstall() {
+  // Delete the configuration of your module.
+  \Drupal::configFactory()->getEditable('assignment.settings')->delete();
+
+  // Delete the configuration of your content type.
+  \Drupal::entityTypeManager()->getStorage('node_type')->load('entries')->delete();
+
+  // Delete the configuration of your block placement.
+  \Drupal::configFactory()->getEditable('core.entity_view_display.node.entries.default')->delete();
+
+  // Delete the custom block created by your module.
+  $block_id = 'assignment_api_data_block';
+  $block_storage = \Drupal::entityTypeManager()->getStorage('block');
+  $block = $block_storage->load($block_id);
+  if ($block) {
+    $block->delete();
+  }
+
+  // Clear the configuration cache.
+  \Drupal::entityTypeManager()->getViewBuilder('block')->resetCache();
+
+   // Invalidate all caches.
+   drupal_flush_all_caches();
+}
+
