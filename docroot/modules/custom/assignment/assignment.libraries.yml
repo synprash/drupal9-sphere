@@ -1,0 +1,7 @@
+assignment_modal:
+  version: 1.x
+  js:
+    js/assignment_modal.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal.modal

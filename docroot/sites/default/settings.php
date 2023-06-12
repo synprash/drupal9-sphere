@@ -843,4 +843,8 @@ $databases['default']['default'] = array (
   'driver' => 'mysql',
   'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
 );
+
 $settings['config_sync_directory'] = 'sites/default/files/config_W4cTWQ-H3tUIS8KvOIJT_eVvJI9PETvRItsMBeKrG0ZFTL0TOMgOibFmUt94dJ-WCebo2gGwXQ/sync';
+
+$settings['class_loader_auto_detect'] = FALSE;
+//$settings['trusted_host_patterns'] = array('^api\.publicapis\.org$','^aniapi.com$');

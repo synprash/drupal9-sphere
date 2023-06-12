@@ -5,6 +5,7 @@ namespace Drupal\assignment\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\node\NodeInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use GuzzleHttp\ClientInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -34,7 +35,7 @@ class ApiDataBlock extends BlockBase implements ContainerFactoryPluginInterface 
    *
    * @var \Drupal\node\NodeInterface
    */
-  protected $currentNode;
+  protected $routeMatch;
 
   /**
    * The configuration factory.
@@ -58,10 +59,10 @@ class ApiDataBlock extends BlockBase implements ContainerFactoryPluginInterface 
    *   The current node.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition,
-      ClientInterface $http_client, NodeInterface $current_node, ConfigFactoryInterface $config_factory ) {
+      ClientInterface $http_client, RouteMatchInterface $routeMatch, ConfigFactoryInterface $config_factory ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->httpClient = $http_client;
-    $this->currentNode = $current_node;
+    $this->routeMatch = $routeMatch;
     $this->configFactory = $config_factory;
   }
 
@@ -75,7 +76,7 @@ class ApiDataBlock extends BlockBase implements ContainerFactoryPluginInterface 
       $plugin_id,
       $plugin_definition,
       $container->get('http_client'),
-      $container->get('current_route_match')->getParameter('node'),
+      $container->get('current_route_match'),
       $container->get('config.factory')
     );
   }
@@ -86,14 +87,23 @@ class ApiDataBlock extends BlockBase implements ContainerFactoryPluginInterface 
    */
   public function build() {
 
-    // Check if the current node is of the desired content type.
-    $contentType = $this->currentNode->getType();
-    if ($contentType !== 'entries') {
+    // Get the current node from the route match.
+    $node = $this->routeMatch->getParameter('node');
+    if ($node instanceof NodeInterface) {
+       // Check if the current node is of the desired content type.
+        $contentType = $node->getType();
+
+        if ($contentType !== 'entries') {
+          return [];
+        }
+
+    } else {
       return [];
     }
+
     // Get current node information and fetch records based entry type.
-    $nodeId = $this->currentNode->id();
-    $category = $this->currentNode->get('field_entry_type')->getValue();
+    $nodeId = $node->id();
+    $category = $node->get('field_entry_type')->getValue();
 
     $categoryVal = !empty($category[0]['value']) ? $category[0]['value'] : '';
     $config = $this->configFactory->get('assignment.settings');

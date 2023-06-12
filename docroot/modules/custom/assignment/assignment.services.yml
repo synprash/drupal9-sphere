@@ -1,0 +1,12 @@
+services:
+  assignment.api_fetcher:
+    class: Drupal\assignment\Service\ApiFetcherService
+    arguments: ['@http_client']
+  assignment.bitcoin_prices_block:
+    class: Drupal\assignment\Plugin\Block\BitcoinPricesBlock
+    arguments:
+      - []
+      - bitcoin_prices_block
+      - {}
+      - '@assignment.api_fetcher'
+    tags:
