@@ -2,6 +2,13 @@ assignment.settings:
   path: '/admin/config/assignment/settings'
   defaults:
     _form: '\Drupal\assignment\Form\AssignmentSettingsForm'
-    _title: 'assignment Settings'
+    _title: 'Assignment Settings'
   requirements:
     _permission: 'administer site configuration'
+assignment.update_node_title:
+  path: '/api/update-node-title'
+  defaults:
+    _controller: '\Drupal\assignment\Controller\UpdateNodeTitleApiController::updateNodeTitle'
+  methods: [POST]
+  requirements:
+    _access: 'TRUE'

@@ -1,1 +1,2 @@
 api_url: 'https://api.publicapis.org/entries'
+bitcoin_api_url: 'https://api.coindesk.com/v1/bpi/currentprice.json'

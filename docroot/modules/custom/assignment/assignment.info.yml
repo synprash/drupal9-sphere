@@ -17,11 +17,6 @@ services:
     arguments: ['@config.factory', '@entity_type.manager', '@http_client']
     tags:
       - { name: block.plugin }
-   assignment.bitcoin_prices_block:
-    class: Drupal\assignment\Plugin\Block\BitCoinBlock
-    arguments: ['@config.factory', '@entity_type.manager', '@http_client']
-    tags:
-      - { name: block.plugin }
 configuration:
   - 'config/core.entity_view_display.node.entries.default.yml'
   - 'config/core.entity_view_display.node.entries.teaser.yml'
